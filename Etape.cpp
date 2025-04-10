@@ -1,36 +1,21 @@
 #include "Etape.hpp"
 
-int 
+void
 Etape::entering() 
 {
-    if (enteringAction) {
-        enteringAction(); 
-        return 1;
-    } else {
-        return 0;
-    }
+
 }
 
-int 
+void
 Etape::routine() 
 {
-    if (routineAction) {
-        routineAction();
-        return 1;
-    } else {
-        return 0;
-    }
+
 }
 
-int 
+void
 Etape::leaving() 
 {
-    if (leavingAction) {
-        leavingAction();
-        return 1;
-    } else {
-        return 0;
-    } 
+
 }
 
 int

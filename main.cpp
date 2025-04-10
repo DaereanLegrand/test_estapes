@@ -1,5 +1,5 @@
 #include "mode.hpp"
-#include <stdio.h>
+#include "TestModeEtapes.hpp"
 
 class TestMode: public Mode {
 
@@ -35,22 +35,11 @@ int
 main()
 {
     TestMode test(0);
+    _001 __001(1);
+    _002 __002(2);
 
-    void (*enter)() = []() {
-        printf("entering...");
-    };
-
-    void (*routine)() = []() {
-        printf("routine...");
-    };
-
-    void (*leave)() = []() {
-        printf("leaving...");
-    };
-
-    Etape _001(0, enter, routine, leave);
-
-    test.flux.addEtape(&_001);
+    test.flux.addEtape(&__001);
+    test.flux.addEtape(&__002);
 
     test.entering();
     test.routine();

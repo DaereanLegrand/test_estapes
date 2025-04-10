@@ -9,18 +9,12 @@ class Etape
 protected:
     int etapeId;
 
-    using Action = void(*)();
-
-    Action enteringAction;
-    Action routineAction;
-    Action leavingAction;
-
-    int entering();
-    int routine();
-    int leaving();
+    virtual void entering();
+    virtual void routine();
+    virtual void leaving();
 
 public:
-    Etape(int etapeId, Action entering, Action routine, Action leaving) : etapeId(etapeId), enteringAction(entering), routineAction(routine), leavingAction(leaving) {}
+    Etape(int etapeId) {}
 
     Etape* next;
     int run();
