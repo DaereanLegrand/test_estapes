@@ -18,7 +18,7 @@ Etape::leaving()
 
 }
 
-int
+void
 Etape::run()
 {
     entering();

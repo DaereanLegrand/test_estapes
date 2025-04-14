@@ -1,16 +1,16 @@
 #ifndef MODEDEF
 #define MODEDEF
 
-#include "FluxEtape.hpp"
+class FluxEtape;
 
 class Mode
 {
 protected:
     int modeId;
+    FluxEtape* flux;
 
 public:
     Mode(int modeId) : modeId(modeId) {}
-    FluxEtape flux;
     virtual void entering();
     virtual void routine();
     virtual void leaving(int nextMode);
@@ -31,6 +31,5 @@ public:
     bool hasModeChanged();
     void shootHK();
 };
-;
 
 #endif

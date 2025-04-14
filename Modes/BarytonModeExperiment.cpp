@@ -1,7 +1,19 @@
 #include "modes_baryton.hpp"
+#include "../FluxEtape.hpp"
+#include "EtapesBaryton/EtapesExperiment.hpp"
+#include <cstdio>
+
+BarytonModeExperiment::BarytonModeExperiment() : BarytonMode(0x2000) 
+{
+    flux = new FluxEtape(3);
+    flux->etapes[0] = new _001(1, 1, this);
+    flux->etapes[1] = new _002(2, 2, this);
+    flux->etapes[2] = new _003(3, 3, this);
+};
 
 void BarytonModeExperiment::entering()
 {
+    printf("Mode Experiment: entering...\n");
     bms.batteries[0]->standby();
     bms.batteries[1]->standby();
 
@@ -23,6 +35,9 @@ void BarytonModeExperiment::entering()
 
 void BarytonModeExperiment::routine()
 {
+    printf("Mode Experiment: routine...\n");
+    flux->run();
+    /*
     lastTimeStamp++;
     if (lastTimeStamp > 1000)
     {
@@ -47,7 +62,6 @@ void BarytonModeExperiment::routine()
         }
         break;
     case STANDBY:
-        _delay_ms(50);
         currentBattery = (currentBattery + 1) % 2;
         count++;
         state = DISCHARGE;
@@ -78,26 +92,22 @@ void BarytonModeExperiment::routine()
             prevState = state;
         }
 
-        _delay_ms(1);
         write_param(ChargeCurrent, (state == CHARGE) ? bms.getChargeCurrent() : 0);
         write_param(DischargeCurrent, (state == DISCHARGE) ? bms.getDischargeCurrent() : 0);
 
-        _delay_ms(1);
         write_param(BAT1_STATE, bms.batteries[0]->state);
         write_param(BAT1_VOLTAGE, bms.batteries[0]->getVoltage());
         write_param(BAT1_TEMP, bms.batteries[0]->getTemperature());
         write_param(BAT1_CYCLE, bms.batteries[0]->nbCycle);
 
-        _delay_ms(1);
         write_param(BAT2_STATE, bms.batteries[1]->state);
         write_param(BAT2_VOLTAGE, bms.batteries[1]->getVoltage());
         write_param(BAT2_TEMP, bms.batteries[1]->getTemperature());
         write_param(BAT2_CYCLE, bms.batteries[1]->nbCycle);
-        _delay_ms(1);
     }
-
-    _delay_ms(10);
+    */
 }
+
 void BarytonModeExperiment::leaving(int nextMode)
 {
     bms.batteries[0]->standby();

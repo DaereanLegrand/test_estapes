@@ -1,5 +1,4 @@
 #include "modes_baryton.hpp"
-#include <util/delay.h>
 
 void BarytonMode::entering()
 {

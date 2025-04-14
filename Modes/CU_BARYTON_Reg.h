@@ -1,6 +1,3 @@
-#ifndef CU_BARYTON_REG_H
-#define CU_BARYTON_REG_H
-
 #define ADDR_OFFSET_CU_ID 0 // \param CU Identifier  [0-255]
 #define ADDR_OFFSET_VERSION 1 // \param Version du LV [0-255]
 #define ADDR_OFFSET_MODE 2 // \param Mode de fonctionnement de la CU [0-5]
@@ -264,5 +261,3 @@
 #define STATUS_SPARE3 ADDR_OFFSET_STATUS_SPARE3
 #define STATUS_SPARE4 ADDR_OFFSET_STATUS_SPARE4
 #define STATUS_SPARE5 ADDR_OFFSET_STATUS_SPARE5
-
-#endif

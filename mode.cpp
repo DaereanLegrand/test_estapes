@@ -1,4 +1,8 @@
 #include "mode.hpp"
+#include "LibSpikCU_slave.h"
+#include "CU_BARYTON_Reg.h"
+#include <cstdio>
+#include <unistd.h>
 
 void Mode::entering()
 {
@@ -26,13 +30,15 @@ ModeStateManager::ModeStateManager(Mode **modes, int modeCount)
 {
     this->modes = modes;
     this->modeCount = modeCount;
-    this->currentMode = 0;
+    this->currentMode = 2;
+    this->nextMode = 2;
 }
 
 void ModeStateManager::run()
 {
     while (1)
     {
+        printf("run... currentMode: %d\n", currentMode);;
         write_param(MODE, currentMode);
         modes[currentMode]->entering();
         while (!hasModeChanged())
@@ -54,13 +60,15 @@ bool ModeStateManager::hasModeChanged()
     // nextMode from the OBC or by checking the currentMode
 
     // The Payload has changed the mode (i.e END or ERROR )
+    printf("nextMode: %d and currentMode: %d\n", nextMode, currentMode);
+    sleep(1);
     if (nextMode != currentMode)
     {
         write_param(MODE_SUIVANT, nextMode);
         return true;
     }
     // Check if the OBC has changed the mode
-    nextMode = read_param(MODE_SUIVANT);
+    //nextMode = read_param(MODE_SUIVANT);
     return nextMode != currentMode;
 }
 

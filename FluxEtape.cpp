@@ -1,24 +1,19 @@
+#include "mode.hpp"
+#include "Etape.hpp"
 #include "FluxEtape.hpp"
-#include <cstddef>
 #include <cstdio>
+#include <cstdlib>
 
-FluxEtape::FluxEtape() {
-    size = 0;
+FluxEtape::FluxEtape(int size) : size(size) {
     currentEtape = 0;
-    isNextEtape = false;
 
-    root = NULL;
-    current = NULL;
+    etapes = (Etape **)malloc(size * sizeof(Etape *));
 }
 
 Etape*
 FluxEtape::operator[] (int n)
 {
-    Etape* it = root;
-    for (int i = 0; it != NULL && i < n; i++)
-        it = it->next;
-
-    return it;
+    return etapes[n];
 }
 
 int  
@@ -27,58 +22,19 @@ FluxEtape::getEtape()
     return currentEtape;
 }
 
-int 
-FluxEtape::nextEtape()
+void
+FluxEtape::goNextEtape(int nextEtapeId)
 {
-    if (isNextEtape == false)
-        return 0;
-
-    if (current->next == NULL) {
-        currentEtape += 1;
-        return -1;
-    }
-
-    current = current->next;
-    currentEtape += 1;
-
-    return 1;
-}
-
-int
-FluxEtape::addEtape(Etape* e)
-{
-    if (root == NULL) {
-        root = e;
-        size = 1;
-        return 1;
-    }
-
-    Etape* last = (*this)[size - 1];
-    last->next = e;
-    last = last->next;
-    size += 1;
-    return 1;
+    currentEtape = nextEtapeId;
 }
 
 void
 FluxEtape::run()
 {
-    if (current == NULL && size > 0) {
-        current = root;
-        currentEtape = 0;
-    }
-
-    while (currentEtape < size) {
-        printf("currentEtape: %d \t", currentEtape);
-        current->run();
-        isNextEtape = true;
-        nextEtape();
+    if (currentEtape < size) {
+        printf("currentEtape: %d \n", currentEtape);
+        etapes[currentEtape]->run();
+        goNextEtape(etapes[currentEtape]->nextEtapeId);
         printf("\n");
     }
-}
-
-void 
-FluxEtape::removeEtape (Etape* e)
-{
-    // NOT NECESSARY
 }

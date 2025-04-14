@@ -14,10 +14,10 @@ protected:
     virtual void leaving();
 
 public:
-    Etape(int etapeId) {}
+    int nextEtapeId;
+    Etape(int etapeId, int nextEtapeId) : etapeId(etapeId), nextEtapeId(nextEtapeId) {}
 
-    Etape* next;
-    int run();
+    void run();
     virtual void shootHK();
 };
 

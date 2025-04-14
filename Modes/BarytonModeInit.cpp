@@ -1,10 +1,11 @@
 #include "modes_baryton.hpp"
+#include <iostream>
 
 void BarytonModeInit::entering()
 {
     bms.batteries[0]->standby();
     bms.batteries[1]->standby();
-    // Write the Default Value
+
     if (read_param(VERSION) == 0)
     {
         write_param(DIAG_CHARGE_DURATION, DEFAULT_DIAG_CHARGE_DURATION);
@@ -16,6 +17,7 @@ void BarytonModeInit::entering()
         write_param(BAT_2_Max, DEFAULT_BAT_2_Max);
         write_param(BAT_2_Min, DEFAULT_BAT_2_Min);
     }
+
     write_param(VERSION, 23);
 }
 void BarytonModeInit::routine()

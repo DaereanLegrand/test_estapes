@@ -1,14 +1,9 @@
+#include <cstdio>
 #include <stdint.h>
-#include <string.h>
 #include <stdlib.h>
-
-#include "LibSpikCU_slave.h"
-#include "CU_BARYTON_Reg.h"
 
 #include "mode.hpp"
 #include "Modes/modes_baryton.hpp"
-#include "TestModeEtapes.hpp"
-
 
 BarytonModeInit barytonModeInit;   
 BarytonModeDiagnostic barytonModeDiagnostic;

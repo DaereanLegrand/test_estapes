@@ -36,7 +36,6 @@ void BarytonModeDiagnostic::routine()
         // Power off (standby) the batteries
         bms.batteries[0]->standby();
         bms.batteries[1]->standby();
-        _delay_ms(100);
 
         if (bms.batteries[currentBattery]->enabled && bms.batteries[currentBattery]->voltage > bms.batteries[currentBattery]->vMin)
             bms.batteries[currentBattery]->discharge();
@@ -64,22 +63,18 @@ void BarytonModeDiagnostic::routine()
         write_param(EMPTY_2, readTime());
         write_param(EMPTY_4, elapsedTime);
         lastTimeStampParam = readTime();
-        _delay_ms(1);
         write_param(ChargeCurrent, (bms.batteries[currentBattery]->state == CHARGE) ? bms.getChargeCurrent() : 0);
         write_param(DischargeCurrent, (bms.batteries[(currentBattery + 1) % 2]->state == DISCHARGE) ? bms.getDischargeCurrent() : 0);
 
-        _delay_ms(1);
         write_param(BAT1_STATE, bms.batteries[0]->state);
         write_param(BAT1_VOLTAGE, bms.batteries[0]->getVoltage());
         write_param(BAT1_TEMP, bms.batteries[0]->getTemperature());
         write_param(BAT1_CYCLE, bms.batteries[0]->nbCycle);
 
-        _delay_ms(1);
         write_param(BAT2_STATE, bms.batteries[1]->state);
         write_param(BAT2_VOLTAGE, bms.batteries[1]->getVoltage());
         write_param(BAT2_TEMP, bms.batteries[1]->getTemperature());
         write_param(BAT2_CYCLE, bms.batteries[1]->nbCycle);
-        _delay_ms(1);
 
         // Safe state
         if (bms.batteries[0]->voltage > bms.batteries[0]->vMax && bms.batteries[0]->state == CHARGE)
@@ -92,7 +87,6 @@ void BarytonModeDiagnostic::routine()
             bms.batteries[1]->standby();
     }
 
-    _delay_ms(10);
 }
 void BarytonModeDiagnostic::leaving(int nextMode)
 {

@@ -12,6 +12,7 @@ void BarytonModeError::routine()
 void BarytonModeError::leaving(int nextMode)
 {
 }
+
 void BarytonModeError::shootHK()
 {
     write_HK(read_param(BAT1_VOLTAGE), 2);

@@ -1,16 +1,16 @@
 #ifndef MODES_BARYTON_HPP
 #define MODES_BARYTON_HPP
 
-#include "mode.hpp"
+#include "../mode.hpp"
 #undef PARAMETERS_H
+#include "driver_bat.h"
+#include "../LibSpikCU_slave.h"
 #include "../CU_BARYTON_Reg.h"
-#include "driver_bat.hpp"
 
 uint32_t readTime();
 class BarytonMode : public Mode
 {
 protected:
-    BatteryManagementSystem bms;
     uint32_t lastTimeStampParam;
 
 public:
@@ -53,7 +53,7 @@ public:
 
 class BarytonModeExperiment : public BarytonMode
 {
-private:
+public:
     int lastTimeStamp;
     int maxChargeCurrent;
     int currentBattery;
@@ -61,8 +61,7 @@ private:
     BatteryState prevState;
     int count = 0;
 
-public:
-    BarytonModeExperiment() : BarytonMode(0x2000) {};
+    BarytonModeExperiment();
     void entering() override;
     void routine() override;
     void leaving(int nextMode) override;

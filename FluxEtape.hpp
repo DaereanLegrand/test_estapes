@@ -1,27 +1,23 @@
 #ifndef FLUXETAPE
 #define FLUXETAPE
 
-#include "Etape.hpp"
+class Mode;
+class Etape;
 
 class FluxEtape 
 {
 protected:
-    int size;
+    const int size;
     int currentEtape;
     int nextEtape;
-    Etape* root;
-    Etape* current;
 
 public:
-    Etape* operator[] (int n);
-    FluxEtape();
+    Etape** etapes;
+    Etape* operator[] (int);
+    FluxEtape(int);
 
     int getEtape();
-    int nextEtape();
-
-    int addEtape (Etape*);
-    void removeEtape (Etape*);
-
+    void goNextEtape(int);
     void run();
 };
 

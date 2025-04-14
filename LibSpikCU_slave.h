@@ -5,12 +5,11 @@
 inline uint16_t HK[64] = {0};
 inline uint16_t params[64] = {0};
 
-// Inline the functions
-inline void write_HK(uint16_t value, int index) {
+inline void write_HK(int index, uint16_t value) {
     HK[index] = value;
 }
 
-inline void write_param(uint16_t value, int index) {
+inline void write_param(int index, uint16_t value) {
     params[index] = value;
 }
 
