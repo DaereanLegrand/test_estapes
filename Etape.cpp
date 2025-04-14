@@ -24,7 +24,6 @@ Etape::run()
     entering();
     routine();
     leaving();
-    return 1;
 }
 
 void Etape::shootHK()

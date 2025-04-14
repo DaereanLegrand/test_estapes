@@ -1,46 +1,42 @@
+#include <stdint.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include "LibSpikCU_slave.h"
+#include "CU_BARYTON_Reg.h"
+
 #include "mode.hpp"
+#include "Modes/modes_baryton.hpp"
 #include "TestModeEtapes.hpp"
 
-class TestMode: public Mode {
 
-public:
-    TestMode(int mode) : Mode(mode) {  };
+BarytonModeInit barytonModeInit;   
+BarytonModeDiagnostic barytonModeDiagnostic;
+BarytonModeExperiment barytonModeExperiment;
+BarytonModeError barytonModeError;
+BarytonModeEnd barytonModeEnd;
 
-    void 
-    entering() override
-    {
+Mode *modes[5] = {&barytonModeInit
+    , &barytonModeDiagnostic
+    , &barytonModeExperiment
+    , &barytonModeError
+    , &barytonModeEnd};
 
-    }
+ModeStateManager barytonStateManager(modes, 5);
 
-    void 
-    routine() override
-    {
-        flux.run();
-    }
-
-    void 
-    leaving(int nextMode) override
-    {
-
-    }
-
-    void 
-    shootHK() override 
-    {
-        Mode::shootHK();
-    }
-};
-
-int
-main()
+int main(void)
 {
-    TestMode test(0);
-    _001 __001(1);
-    _002 __002(2);
+    int count = 0;
 
-    test.flux.addEtape(&__001);
-    test.flux.addEtape(&__002);
+    while (1)
+    {
+        barytonStateManager.run();
+    }
+    return 0;
+  
+}
 
-    test.entering();
-    test.routine();
+void shotHK(void)
+{
+    barytonStateManager.shootHK();
 }

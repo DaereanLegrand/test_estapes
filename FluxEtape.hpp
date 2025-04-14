@@ -8,7 +8,7 @@ class FluxEtape
 protected:
     int size;
     int currentEtape;
-    bool isNextEtape;
+    int nextEtape;
     Etape* root;
     Etape* current;
 
