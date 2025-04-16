@@ -10,6 +10,7 @@ protected:
     const int size;
     int currentEtape;
     int nextEtape;
+    int lastTime;
 
 public:
     Etape** etapes;

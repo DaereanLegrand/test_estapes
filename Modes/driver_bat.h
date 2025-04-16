@@ -52,8 +52,8 @@ struct Battery {
 };
 
 typedef struct {
+	Battery battery0;
 	Battery battery1;
-	Battery battery2;
 	Battery *batteries[2];
 	uint16_t chargeCurrent;
 	uint16_t dischargeCurrent;
